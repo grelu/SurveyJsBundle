@@ -9,12 +9,10 @@
     "keywords" : [
         "surveyjs bundle questionnaire"
     ],
-    "require" : {
-    },
     "autoload" : {
         "psr-0" : {
             "Grelu\\SurveyJsBundle\\" : ""
         }
     },
-    "target-dir" : "Grelu/SurveyJsBundle",
+    "target-dir" : "Grelu/SurveyJsBundle"
 }
