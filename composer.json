@@ -10,7 +10,7 @@
         "surveyjs bundle questionnaire"
     ],
     "autoload" : {
-        "psr-0" : {
+        "psr-4" : {
             "Grelu\\SurveyJsBundle\\" : ""
         }
     },
