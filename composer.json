@@ -10,9 +10,6 @@
         "surveyjs bundle"
     ],
     "require" : {
-            "php" : ">=5.6",
-            "symfony/framework-bundle" : ">=2.8",
-            "twig/twig" : "*"
     },
     "autoload" : {
         "psr-0" : {
