@@ -14,5 +14,5 @@
             "Grelu\\SurveyJsBundle\\" : ""
         }
     },
-    "target-dir" : ""
+    "target-dir" : "src/"
 }
