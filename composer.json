@@ -10,13 +10,10 @@
         "surveyjs bundle"
     ],
     "require" : {
-        "php" : ">=7.0",
-        "sensio/framework-extra-bundle": "^3.0.2"
     },
     "autoload" : {
         "psr-0" : {
-            "Grelu\\SurveyJsBundle\\" : ""
+            "Grelu\\SurveyJsBundle" : ""
         }
-    },
-    "target-dir" : "grelu/surveyjs-bundle/src"
+    }
 }
