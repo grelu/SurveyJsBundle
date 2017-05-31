@@ -13,6 +13,5 @@
         "psr-4" : {
             "Grelu\\SurveyJsBundle\\" : ""
         }
-    },
-    "target-dir" : "src/"
+    }
 }
