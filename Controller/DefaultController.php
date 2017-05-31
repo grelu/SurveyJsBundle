@@ -1,6 +1,6 @@
 <?php
 
-namespace grelu\SurveyJsBundle\Controller;
+namespace Grelu\SurveyJsBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;

@@ -1,6 +1,6 @@
 <?php
 
-namespace grelu\SurveyJsBundle\Tests\Controller;
+namespace Grelu\SurveyJsBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 

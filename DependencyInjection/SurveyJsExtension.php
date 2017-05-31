@@ -1,6 +1,6 @@
 <?php
 
-namespace grelu\SurveyJsBundle\DependencyInjection;
+namespace Grelu\SurveyJsBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
