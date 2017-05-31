@@ -7,13 +7,14 @@
         "email" : "delannoy.g@gmail.com"
     }],
     "keywords" : [
-        "surveyjs bundle"
+        "surveyjs bundle questionnaire"
     ],
     "require" : {
     },
     "autoload" : {
         "psr-0" : {
-            "Grelu\\SurveyJsBundle" : ""
+            "Grelu\\SurveyJsBundle\\" : ""
         }
-    }
+    },
+    "target-dir" : "Grelu/SurveyJsBundle",
 }
