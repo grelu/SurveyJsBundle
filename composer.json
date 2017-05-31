@@ -1,0 +1,23 @@
+{   
+    "name" : "grelu/surveyjs-bundle",
+    "description" : "SurveyJs Bundle",
+    "type" : "symfony-bundle",
+    "authors" : [{
+        "name" : "Grégory Delannoy",
+        "email" : "delannoy.g@gmail.com"
+    }],
+    "keywords" : [
+        "surveyjs bundle"
+    ],
+    "require" : {
+            "php" : ">=5.6",
+            "symfony/framework-bundle" : ">=2.8",
+            "twig/twig" : "*"
+    },
+    "autoload" : {
+        "psr-0" : {
+            "Grelu\\SurveyJsBundle" : ""
+        }
+    },
+    "target-dir" : "grelu/surveyjs-bundle"
+}
