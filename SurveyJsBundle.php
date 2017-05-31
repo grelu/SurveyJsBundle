@@ -1,6 +1,6 @@
 <?php
 
-namespace grelu\SurveyJsBundle;
+namespace Grelu\SurveyJsBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
