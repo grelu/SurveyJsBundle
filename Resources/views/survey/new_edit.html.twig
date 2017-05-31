@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{asset('bundles/surveyjs/surveyjs-editor/surveyeditor.css')}}" type="text/css" />
+{% endblock %}
+
+{% block body %}
+    <ul>
+        <li>
+            <a href="{{ path('survey_index') }}">Back to the list</a>
+        </li>
+    </ul>
+
+<div id="surveyEditorContainer"></div>
+<span id='jsonSurvey' class='hidden'>{{json|raw}}</span>
+<input id='idSurvey' class='hidden' value='{{id}}'/>
+{% endblock %}
+
+{% block other_javascripts %}
+    <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+{% block javascripts %}
+        
+            {% javascripts
+                'bundles/surveyjs/knockout/knockout-latest.js'
+                'bundles/surveyjs/survey-knockout/survey.ko.min.js'
+                'bundles/surveyjs/surveyjs-editor/surveyeditor.min.js'
+                'bundles/surveyjs/jquery/jquery.min.js'               
+            %}
+            <script type="text/javascript" src="{{ asset_url }}"></script>           
+            {% endjavascripts %}
+        {% endblock %}
+
+<script type="text/javascript">
+
+var editorOptions = {showEmbededSurveyTab: false, generateValidJSON:true}; //see examples below
+  /*Survey.JsonObject.metaData.addProperty("questionbase", {name: "gradeIfTrue:number", default: 0});
+  Survey.JsonObject.metaData.addProperty("questionbase", {name: "gradeIfFalse:number", default: 0});
+  Survey.JsonObject.metaData.addProperty("questionbase", {name: "recommendation"});*/
+  
+  var survey = new SurveyEditor.SurveyEditor("surveyEditorContainer", editorOptions);
+  console.log($('#jsonSurvey').text())
+  survey.text = $('#jsonSurvey').text()
+  survey.saveSurveyFunc = function() {
+      jsonSurvey = survey.text;
+    $.ajax({
+       url : Routing.generate('survey_save'),
+       type : 'POST',
+       data: {
+           'jsonSurvey' : jsonSurvey,
+           'id' : $('#idSurvey').attr('value')
+       },
+       dataType : 'json',
+
+       success : function(code_html, statut){
+                    
+       },
+       error : function(resultat, statut, erreur){        
+       },
+       complete : function(resultat, statut){
+       }
+    });
+
+  }
+</script>
+{% endblock %}

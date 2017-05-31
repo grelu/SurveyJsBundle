@@ -1,0 +1,106 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{asset('bundles/surveyjs/surveyjs-editor/surveyeditor.css')}}" type="text/css" />
+{% endblock %}
+
+{% block body %}
+    <ul>
+        <li>
+            <a href="{{ path('survey_index') }}">Back to the list</a>
+        </li>
+    </ul>
+
+<div id="surveyContainer"></div>
+<span id='surveyJson' class='hidden'>{{survey.json|raw}}</span>
+<input id='idSurvey' class='hidden' value='{{id}}'/>
+
+{% endblock %}
+
+{% block other_javascripts %}
+
+
+{% block javascripts %}
+  {% javascripts
+    'bundles/surveyjs/survey-jquery/survey.jquery.min.js'
+  %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+  {% endjavascripts %}
+{%endblock%}
+
+<script type="text/javascript">
+if($('#progressQuestionnaire').find('.progress-bar').attr('aria-valuenow') == 100){
+  $('#finished').modal('show')
+}
+
+Survey.defaultBootstrapCss.navigationButton = "btn btn-primary";
+
+jsonSurvey = JSON.parse($('#surveyJson').text())
+
+if($('#dataSurvey').length){
+  dataJsonSurvey = JSON.parse($('#dataSurvey').text())
+}else{
+  dataJsonSurvey = {}
+}
+
+jsonSurvey["locale"] = "fr"
+Survey.Survey.cssType = "bootstrap"
+
+var survey = new Survey.Model(jsonSurvey);
+survey.showProgressBar = 'bottom'
+survey.showCompletedPage = false
+
+var myCss = {
+      root: "panel panel-silver surveyFont",
+      pageTitle: "surveyPageTitle",
+      question: {
+        "root": "",
+        "title": "surveyQuestionTitle",
+        "comment": "form-control"
+      },
+      "checkbox": {
+        "root": "form-inline",
+        "item": "checkbox",
+        "other": "col-lg-12"
+      },
+      progressBar: "progress-bar progress-bar-info surveyProgressBar",
+ };
+
+survey.sendResultOnPageNext = true
+    $("#surveyContainer").Survey({
+        model:survey,
+        css: myCss,
+        data:dataJsonSurvey,
+        onComplete:sendDataToServer,
+        onPartialSend:sendDataToServer
+});
+
+
+function sendDataToServer(survey) {
+  indexChapter = $('#indexChapter').val()
+  $.post(
+    Routing.generate('evaluation_save'),
+    {
+      'idSurvey' : $('#surveyId').val(),
+      'indexChapter' : indexChapter,
+      'dataJsonSurvey' : JSON.stringify(survey.data)
+    },
+    function(progress){
+      if(survey.isCompleted){
+        window.location = Routing.generate($('#url').val(), {
+          'id' : $('#idQuestionnaire').val(),
+          'indexChapter' : $('#nextChapter').val(),
+          'indexSurvey' : $('#nextSurvey').val()
+        })
+      }else{
+        $('.chapter'+indexChapter).text(progress.chapter)
+        $('#progressQuestionnaire').find('.progress-bar').attr('aria-valuenow', progress.questionnaire)
+        $('#progressQuestionnaire').find('.progress-bar').attr('style', "width:"+progress.questionnaire+"%;")
+        $('#progressQuestionnaire').find('.progress-bar').text(progress.questionnaire+" %")
+      }
+    }, 
+    'json' 
+  )
+}
+</script>
+{% endblock %}

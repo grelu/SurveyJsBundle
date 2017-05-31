@@ -6,6 +6,9 @@
         "name" : "Grégory Delannoy",
         "email" : "delannoy.g@gmail.com"
     }],
+    "require": {
+        "friendsofsymfony/jsrouting-bundle": "^1.6"
+    },
     "keywords" : [
         "surveyjs bundle questionnaire"
     ],
