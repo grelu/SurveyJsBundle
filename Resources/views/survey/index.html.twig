@@ -7,7 +7,6 @@
     <table>
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Title</th>
                 <th>Actions</th>
             </tr>
@@ -15,12 +14,14 @@
         <tbody>
         {% for survey in surveys %}
             <tr>
-                <td><a href="{{ path('survey_show', { 'id': survey.id }) }}">{{ survey.id }}</a></td>
-                <td>{{ survey.name }}</td>
+                <td>{{ survey.title }}</td>
                 <td>
                     <ul>
                         <li>
-                            <a href="{{ path('survey_edit', { 'id': survey.id }) }}">edit</a>
+                            <a href="{{ path('survey_show', { 'id': survey.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('survey_new_edit', { 'id': survey.id }) }}">edit</a>
                         </li>
                     </ul>
                 </td>
@@ -31,7 +32,7 @@
 
     <ul>
         <li>
-            <a href="{{ path('survey_new') }}">Create a new survey</a>
+            <a href="{{ path('survey_new_edit') }}">Create a new survey</a>
         </li>
     </ul>
 

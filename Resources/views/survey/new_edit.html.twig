@@ -5,31 +5,29 @@
 {% endblock %}
 
 {% block body %}
-    <ul>
-        <li>
-            <a href="{{ path('survey_index') }}">Back to the list</a>
-        </li>
-    </ul>
+      <ul>
+          <li>
+              <a href="{{ path('survey_index') }}">Back to the list</a>
+          </li>
+      </ul>
 
-<div id="surveyEditorContainer"></div>
-<span id='jsonSurvey' class='hidden'>{{json|raw}}</span>
-<input id='idSurvey' class='hidden' value='{{id}}'/>
-{% endblock %}
+  <div id="surveyEditorContainer"></div>
+  <span id='jsonSurvey' class='hidden'>{{json|raw}}</span>
+  <input id='idSurvey' class='hidden' value='{{id}}'/>
 
-{% block other_javascripts %}
-    <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+
 {% block javascripts %}
-        
-            {% javascripts
-                'bundles/surveyjs/knockout/knockout-latest.js'
-                'bundles/surveyjs/survey-knockout/survey.ko.min.js'
-                'bundles/surveyjs/surveyjs-editor/surveyeditor.min.js'
-                'bundles/surveyjs/jquery/jquery.min.js'               
-            %}
-            <script type="text/javascript" src="{{ asset_url }}"></script>           
-            {% endjavascripts %}
-        {% endblock %}
+  {% javascripts
+      'bundles/surveyjs/knockout/knockout-latest.js'
+      'bundles/surveyjs/survey-knockout/survey.ko.min.js'
+      'bundles/surveyjs/surveyjs-editor/surveyeditor.min.js'
+      'bundles/surveyjs/jquery/jquery.min.js'               
+  %}
+  <script type="text/javascript" src="{{ asset_url }}"></script>           
+  {% endjavascripts %}
+  <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+  <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+{% endblock %}
 
 <script type="text/javascript">
 
@@ -51,9 +49,8 @@ var editorOptions = {showEmbededSurveyTab: false, generateValidJSON:true}; //see
            'id' : $('#idSurvey').attr('value')
        },
        dataType : 'json',
-
-       success : function(code_html, statut){
-                    
+       success : function(survey, statut){
+           $('#idSurvey').attr('value', survey.id)        
        },
        error : function(resultat, statut, erreur){        
        },

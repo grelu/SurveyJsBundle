@@ -3,6 +3,7 @@
 namespace Grelu\SurveyJsBundle\Controller;
 
 use Grelu\SurveyJsBundle\Entity\Survey;
+use Grelu\SurveyJsBundle\Entity\DataSurvey;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -27,7 +28,6 @@ class SurveyController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $surveys = $em->getRepository('SurveyJsBundle:Survey')->findAll();
-
         return $this->render('SurveyJsBundle:survey:index.html.twig', array(
             'surveys' => $surveys,
         ));
@@ -57,19 +57,6 @@ class SurveyController extends Controller
     }
 
     /**
-     * Show a survey entity.
-     *
-     * @Route("/show/{id}", name="survey_new_edit")
-     * @Method({"GET", "POST"})
-     */
-    public function newEditAction(Survey $survey)
-    {        
-        return $this->render('SurveyJsBundle:survey:show.html.twig', array(
-            'json' => $survey->getJson()
-        ));
-    }
-
-    /**
      * Save a survey entity.
      *
      * @Route("/save", name="survey_save", options={"expose"=true})
@@ -93,6 +80,42 @@ class SurveyController extends Controller
         $survey->setJson(preg_replace("#\n|\t|\r#","",$request->get('jsonSurvey')));
         $em->persist($survey);
         $em->flush();
-        return new Response(json_encode(array('STATUS' => 'ok')));
+        return new Response(json_encode(array('id' => $survey->getId())));
+    }
+    /**
+     * Creates a new survey entity.
+     *
+     * @Route("/show/{id}/number/{number}", name="survey_show")
+     * @Method("GET")
+     */
+    public function showAction(Survey $survey, $number = null)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $dataSurvey = $em->getRepository('SurveyJsBundle:DataSurvey')->findOneByNumber($number);
+        return $this->render('SurveyJsBundle:survey:show.html.twig', array(
+            'survey' => $survey,
+            'dataSurvey' => $dataSurvey
+        ));
+    }
+    /**
+     * Save a survey entity.
+     *
+     * @Route("/data-save", name="survey_data_save", options={"expose"=true})
+     * @Method("POST")
+     */
+    public function dataSaveAction(Request $request)
+    {             
+        $em=$this->getDoctrine()->getManager();
+        $surveyAsObject = json_decode($request->get('dataJsonSurvey'));
+        $survey = $em->getRepository('SurveyJsBundle:Survey')->find($request->get('idSurvey'));
+        $dataSurvey = $em->getRepository('SurveyJsBundle:DataSurvey')->findOneByNumber($request->get('number'));
+        if(is_null($dataSurvey)){
+            $dataSurvey = new DataSurvey(time().rand(0,99999999).time());
+        }
+        $dataSurvey->setSurvey($survey);
+        $dataSurvey->setJson($request->get('dataJsonSurvey'));
+        $em->persist($dataSurvey);
+        $em->flush();
+        return new Response(json_encode(array('id' => $dataSurvey->getId())));
     }
 }

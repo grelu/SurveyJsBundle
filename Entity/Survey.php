@@ -29,9 +29,9 @@ class Survey
     private $title;
 
     /**
-     * @var array
+     * @var string
      *
-     * @ORM\Column(name="json", type="json_array")
+     * @ORM\Column(name="json", type="text")
      */
     private $json;
 
@@ -44,30 +44,6 @@ class Survey
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set json
-     *
-     * @param array $json
-     *
-     * @return Survey
-     */
-    public function setJson($json)
-    {
-        $this->json = $json;
-
-        return $this;
-    }
-
-    /**
-     * Get json
-     *
-     * @return array
-     */
-    public function getJson()
-    {
-        return $this->json;
     }
 
     /**
@@ -92,5 +68,29 @@ class Survey
     public function getTitle()
     {
         return $this->title;
+    }
+
+    /**
+     * Set json
+     *
+     * @param string $json
+     *
+     * @return Survey
+     */
+    public function setJson($json)
+    {
+        $this->json = $json;
+
+        return $this;
+    }
+
+    /**
+     * Get json
+     *
+     * @return string
+     */
+    public function getJson()
+    {
+        return $this->json;
     }
 }
