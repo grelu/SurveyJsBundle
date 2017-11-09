@@ -2,8 +2,6 @@
 
 namespace Grelu\SurveyJsBundle\Controller;
 
-use Grelu\SurveyJsBundle\Entity\Survey;
-use Grelu\SurveyJsBundle\Entity\DataSurvey;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -67,7 +65,8 @@ class SurveyController extends Controller
         $em=$this->getDoctrine()->getManager();
         //var_dump($request->get('id'));die;
         if($request->get('id') === '0'){
-            $survey = new Survey();
+            $class = $this->container->getParameter('survey_class');
+            $survey = new $class;
         }else{
             $survey = $em->getRepository('SurveyJsBundle:Survey')->find($request->get('id'));      
         }
@@ -88,9 +87,10 @@ class SurveyController extends Controller
      * @Route("/show/{id}/number/{number}", name="survey_show")
      * @Method("GET")
      */
-    public function showAction(Survey $survey, $number = null)
+    public function showAction($id, $number = null)
     {
         $em=$this->getDoctrine()->getManager();
+        $survey = $em->getRepository('SurveyJsBundle:Survey')->find($id);
         $dataSurvey = $em->getRepository('SurveyJsBundle:DataSurvey')->findOneByNumber($number);
         return $this->render('SurveyJsBundle:survey:show.html.twig', array(
             'survey' => $survey,
@@ -110,7 +110,8 @@ class SurveyController extends Controller
         $survey = $em->getRepository('SurveyJsBundle:Survey')->find($request->get('idSurvey'));
         $dataSurvey = $em->getRepository('SurveyJsBundle:DataSurvey')->findOneByNumber($request->get('number'));
         if(is_null($dataSurvey)){
-            $dataSurvey = new DataSurvey(time().rand(0,99999999).time());
+            $class = $this->container->getParameter('data_survey_class');
+            $dataSurvey = new $class(time().rand(0,99999999).time());
         }
         $dataSurvey->setSurvey($survey);
         $dataSurvey->setJson($request->get('dataJsonSurvey'));

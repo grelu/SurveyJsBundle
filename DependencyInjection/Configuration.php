@@ -19,10 +19,11 @@ class Configuration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('survey_js');
-
-        // Here you should define the parameters that are allowed to
-        // configure your bundle. See the documentation linked above for
-        // more information on that topic.
+        $rootNode
+            ->children()
+                ->scalarNode('survey_class')->isRequired()->cannotBeEmpty()->end()
+                ->scalarNode('data_survey_class')->isRequired()->cannotBeEmpty()->end()
+            ->end();
 
         return $treeBuilder;
     }

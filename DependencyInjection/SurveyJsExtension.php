@@ -24,5 +24,8 @@ class SurveyJsExtension extends Extension
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
+
+        $container->setParameter('survey_class', $config['survey_class']);
+        $container->setParameter('data_survey_class', $config['data_survey_class']);
     }
 }

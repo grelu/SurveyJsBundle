@@ -8,19 +8,20 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\MappedSuperclass
  */
 
-Class Survey
+abstract class Survey
 {
 
-    /** @ORM\Id @GeneratedValue @Column(type="integer", name="id") */
+    /** @ORM\Id @ORM\GeneratedValue @ORM\Column(type="integer", name="id") */
     protected $id;
 
     /** @ORM\Column(name="title", nullable=true, unique=false, length=255) */
-
     protected $title;
 
     /** @ORM\Column(name="json", nullable=true, type="text") */
-
     protected $json;
+
+    /** @ORM\OneToMany(targetEntity="DataSurvey", mappedBy="survey")*/   
+    protected $data;
 
     /**
      * Get id
@@ -78,5 +79,22 @@ Class Survey
     public function getJson()
     {
         return $this->json;
+    }
+
+    public function addDatumSurvey(DataSurvey $datasurvey)
+    {
+        $this->data[] = $datasurvey;
+
+        return $this;
+    }
+
+    public function removeDatumSurvey(DataSurvey $datasurvey)
+    {
+        $this->data->removeElement($datasurvey);
+    }
+
+    public function getData()
+    {
+        return $this->data;
     }
 }

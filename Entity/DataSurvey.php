@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\MappedSuperclass
  */
 
-class DataSurvey
+abstract class DataSurvey
 {
     /**
      * @ORM\Column(name="id", type="integer")
@@ -23,7 +23,8 @@ class DataSurvey
     protected $json;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Survey")
+     * @ORM\ManyToOne(targetEntity="Survey", inversedBy="data")
+     * @ORM\JoinColumn(nullable=false)
      * @ORM\JoinColumn(name="survey_id", referencedColumnName="id")
      */
     protected $survey;
