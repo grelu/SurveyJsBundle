@@ -5,36 +5,22 @@ namespace Grelu\SurveyJsBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Survey
- *
- * @ORM\Table(name="survey")
- * @ORM\Entity(repositoryClass="Grelu\SurveyJsBundle\Repository\SurveyRepository")
+ * @ORM\MappedSuperclass
  */
-class Survey
+
+Class Survey
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="title", type="string", length=255)
-     */
-    private $title;
+    /** @ORM\Id @GeneratedValue @Column(type="integer", name="id") */
+    protected $id;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="json", type="text")
-     */
-    private $json;
+    /** @ORM\Column(name="title", nullable=true, unique=false, length=255) */
 
+    protected $title;
+
+    /** @ORM\Column(name="json", nullable=true, type="text") */
+
+    protected $json;
 
     /**
      * Get id

@@ -5,41 +5,33 @@ namespace Grelu\SurveyJsBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * DataSurvey
- *
- * @ORM\Table(name="data_survey")
- * @ORM\Entity(repositoryClass="Grelu\SurveyJsBundle\Repository\DataSurveyRepository")
+ * @ORM\MappedSuperclass
  */
+
 class DataSurvey
 {
     /**
-     * @var int
-     *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="json", type="text")
      */
-    private $json;
+    protected $json;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Grelu\SurveyJsBundle\Entity\Survey")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="Survey")
+     * @ORM\JoinColumn(name="survey_id", referencedColumnName="id")
      */
-    private $survey;
+    protected $survey;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="number", type="string", length=255)
      */
-    private $number;
+    protected $number;
 
     public function __construct($number){
         $this->number=$number;
