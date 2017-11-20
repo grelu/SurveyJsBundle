@@ -1,6 +1,6 @@
 {
   "name": "surveyjs-editor",
-  "version": "0.12.16",
+  "version": "0.96.0",
   "description": "Use surveyjs Editor to create or edit JSON for surveyjs library.",
   "keywords": [
     "Survey",
@@ -16,52 +16,22 @@
     "surveyeditor.d.ts",
     "surveyeditor.min.js"
   ],
-  "main": "surveyeditor.min.js",
+  "main": "surveyeditor.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/surveyjs/editor.git"
+    "url": "https://github.com/surveyjs/editor.git"
   },
   "engines": {
     "node": ">=0.10.0"
   },
   "typings": "surveyeditor.d.ts",
   "dependencies": {
-    "survey-knockout": "^0.12.16",
-    "jquery": "^2.1.0",
+    "survey-knockout": "^0.96.0",
     "knockout": "^3.4.0",
     "bootstrap": "^3.3.6",
     "ace-builds": "^1.2.2"
   },
   "devDependencies": {
     "@types/knockout": "^3.4.0"
-  },
-  "bugs": {
-    "url": "https://github.com/surveyjs/editor/issues"
-  },
-  "_id": "surveyjs-editor@0.12.16",
-  "scripts": {},
-  "_shasum": "7c6c39b62baffe1b651497bbc23616fd4c853323",
-  "_from": "surveyjs-editor@",
-  "_npmVersion": "2.15.11",
-  "_nodeVersion": "4.8.3",
-  "_npmUser": {
-    "name": "andrewtelnov",
-    "email": "andrew.telnov@gmail.com"
-  },
-  "dist": {
-    "shasum": "7c6c39b62baffe1b651497bbc23616fd4c853323",
-    "tarball": "https://registry.npmjs.org/surveyjs-editor/-/surveyjs-editor-0.12.16.tgz"
-  },
-  "maintainers": [
-    {
-      "name": "andrewtelnov",
-      "email": "andrew.telnov@gmail.com"
-    }
-  ],
-  "_npmOperationalInternal": {
-    "host": "s3://npm-registry-packages",
-    "tmp": "tmp/surveyjs-editor-0.12.16.tgz_1496219708263_0.7153718206100166"
-  },
-  "directories": {},
-  "_resolved": "https://registry.npmjs.org/surveyjs-editor/-/surveyjs-editor-0.12.16.tgz"
+  }
 }

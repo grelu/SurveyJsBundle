@@ -1,6 +1,6 @@
 {
   "name": "survey-angular",
-  "version": "0.12.15",
+  "version": "0.96.1",
   "description": "survey.js is a JavaScript Survey Library. It is a modern way to add a survey to your website. It uses JSON for survey metadata and results.",
   "keywords": [
     "Survey",
@@ -10,7 +10,7 @@
     "angular",
     "angular-component"
   ],
-  "homepage": "https://surveyjs.org/",
+  "homepage": "https://surveyjs.io/",
   "license": "MIT",
   "files": [
     "survey.css",
@@ -18,7 +18,7 @@
     "survey.angular.js",
     "survey.angular.min.js"
   ],
-  "main": "survey.angular.min.js",
+  "main": "survey.angular.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/surveyjs/surveyjs.git"
