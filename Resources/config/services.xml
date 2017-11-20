@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="survey.manager" class="Grelu\SurveyJsBundle\Manager\SurveyManager" public="false">
+            <argument type="service" id="object.manager" />
+            <argument>%survey_class%</argument>
+        </service>
+
+        <!-- The factory is configured in the DI extension class to support more Symfony versions -->
+        <service id="object.manager" class="Doctrine\Common\Persistence\ObjectManager" public="false">
+            <argument>"orm"</argument>
+        </service>
+
+    </services>
+
+</container>

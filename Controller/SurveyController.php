@@ -65,8 +65,8 @@ class SurveyController extends Controller
         $em=$this->getDoctrine()->getManager();
         //var_dump($request->get('id'));die;
         if($request->get('id') === '0'){
-            $class = $this->container->getParameter('survey_class');
-            $survey = new $class;
+            $surveyManager = $this->get('survey.manager');
+            $survey = $surveyManager->createSurvey();
         }else{
             $survey = $em->getRepository('SurveyJsBundle:Survey')->find($request->get('id'));      
         }
