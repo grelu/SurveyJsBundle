@@ -27,16 +27,19 @@
   {% endjavascripts %}
   <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
   <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+  <input type="hidden" value="{{app.request.locale}}" id="locale"/>
 {% endblock %}
 
 <script type="text/javascript">
 
-var editorOptions = {showEmbededSurveyTab: false, generateValidJSON:true}; //see examples below
+  var editorOptions = {showEmbededSurveyTab: false, generateValidJSON:true}; //see examples below
   /*Survey.JsonObject.metaData.addProperty("questionbase", {name: "gradeIfTrue:number", default: 0});
   Survey.JsonObject.metaData.addProperty("questionbase", {name: "gradeIfFalse:number", default: 0});
   Survey.JsonObject.metaData.addProperty("questionbase", {name: "recommendation"});*/
-  
+  SurveyEditor.editorLocalization.currentLocale = $('#locale').val();
+
   var survey = new SurveyEditor.SurveyEditor("surveyEditorContainer", editorOptions);
+  
   console.log($('#jsonSurvey').text())
   survey.text = $('#jsonSurvey').text()
   survey.saveSurveyFunc = function() {
