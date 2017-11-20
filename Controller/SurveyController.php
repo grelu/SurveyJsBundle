@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Grelu\SurveyJsBundle\Doctrine\SurveyManager;
 
 /**
  * Survey controller.
@@ -65,8 +66,9 @@ class SurveyController extends Controller
         $em=$this->getDoctrine()->getManager();
         //var_dump($request->get('id'));die;
         if($request->get('id') === '0'){
-            $class = $this->container->getParameter('survey_class');
-            $survey = new $class;
+            var_dump($this->get('survey.manager'));die;
+            $surveyManager = $this->get('survey.manager');
+            $survey = new $surveyManager->createSurvey();
         }else{
             $survey = $em->getRepository('SurveyJsBundle:Survey')->find($request->get('id'));      
         }
@@ -110,8 +112,8 @@ class SurveyController extends Controller
         $survey = $em->getRepository('SurveyJsBundle:Survey')->find($request->get('idSurvey'));
         $dataSurvey = $em->getRepository('SurveyJsBundle:DataSurvey')->findOneByNumber($request->get('number'));
         if(is_null($dataSurvey)){
-            $class = $this->container->getParameter('data_survey_class');
-            $dataSurvey = new $class(time().rand(0,99999999).time());
+            //$class = $this->container->getParameter('data_survey_class');
+            $dataSurvey = new DataSurvey(time().rand(0,99999999).time());
         }
         $dataSurvey->setSurvey($survey);
         $dataSurvey->setJson($request->get('dataJsonSurvey'));
