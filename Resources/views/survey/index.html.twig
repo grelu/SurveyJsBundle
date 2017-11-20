@@ -28,7 +28,7 @@
                 </td>
                 <td>
                     {%for datasurvey in survey.data %}
-                        <a href="{{ path('survey_show', { 'id': survey.id }, 'number' : datasurvey.number) }}">Response {{datasurvey.id}}</a>
+                        <a href="{{ path('survey_show', { 'id': survey.id, 'number' : datasurvey.number}) }}">Response {{datasurvey.id}}</a>
                     {%endfor%}
                 </td>
             </tr>

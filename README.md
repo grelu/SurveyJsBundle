@@ -36,12 +36,6 @@ surveyJs:
     type:     annotation
 ```
 
-## Install assets
-
-```bash
-php bin/console assets:install
-```
-
 ## Update schema :
 
 ```bash
@@ -56,7 +50,7 @@ php bin/console assets:install
 ## You must now to extend two class in your AppBundle :
 
 
-### Class Survey (to save your surveys ) :
+### Add Class Survey (to save your surveys ) :
 
 ```php
 <?php
@@ -81,7 +75,7 @@ class Survey extends BaseSurvey
 }
 ```
 
-### Class DataSurvey (to save results of surveys)
+### Add Class DataSurvey (to save results of surveys)
 
 ```php
 <?php
@@ -105,6 +99,16 @@ class DataSurvey extends BaseDataSurvey
     protected $id;
 }
 ```
+
+### Add class in your config.yml
+
+```yaml
+# SurveyJsBundle config
+survey_js:
+    survey_class: AppBundle\Entity\Survey
+    data_survey_class: AppBundle\Entity\DataSurvey
+```
+
 
 ## It's Ok ! This is the list of routes available :
 

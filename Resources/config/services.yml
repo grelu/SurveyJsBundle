@@ -1,0 +1,7 @@
+services:
+    survey.manager:
+        class: Grelu\SurveyJsBundle\Manager\SurveyManager
+        arguments: ["%survey_class%"]
+    datasurvey.manager:
+        class: Grelu\SurveyJsBundle\Manager\DataSurveyManager
+        arguments: ["%data_survey_class%"]

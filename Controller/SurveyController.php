@@ -24,8 +24,8 @@ class SurveyController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
-        $surveys = $em->getRepository('SurveyJsBundle:Survey')->findAll();
+        $surveyManager = $this->get('survey.manager');
+        $surveys = $em->getRepository($surveyManager->getClass())->findAll();
         return $this->render('SurveyJsBundle:survey:index.html.twig', array(
             'surveys' => $surveys,
         ));
@@ -44,7 +44,8 @@ class SurveyController extends Controller
             $id = 0;
             $json = NULL;
         }else{
-            $survey = $em->getRepository('SurveyJsBundle:Survey')->find($id);
+            $surveyManager = $this->get('survey.manager');
+            $survey = $em->getRepository($surveyManager->getClass())->find($id);
             $id = $survey->getId();
             $json = $survey->getJson();
         }
@@ -63,12 +64,11 @@ class SurveyController extends Controller
     public function saveAction(Request $request)
     {             
         $em=$this->getDoctrine()->getManager();
-        //var_dump($request->get('id'));die;
-        if($request->get('id') === '0'){
-            $surveyManager = $this->get('survey.manager');
+        $surveyManager = $this->get('survey.manager');
+        if($request->get('id') === '0'){           
             $survey = $surveyManager->createSurvey();
         }else{
-            $survey = $em->getRepository('SurveyJsBundle:Survey')->find($request->get('id'));      
+            $survey = $em->getRepository($surveyManager->getClass())->find($request->get('id'));      
         }
         $surveyAsObject = json_decode($request->get('jsonSurvey'));
         if(property_exists($surveyAsObject, 'title')){
@@ -90,8 +90,10 @@ class SurveyController extends Controller
     public function showAction($id, $number = null)
     {
         $em=$this->getDoctrine()->getManager();
-        $survey = $em->getRepository('SurveyJsBundle:Survey')->find($id);
-        $dataSurvey = $em->getRepository('SurveyJsBundle:DataSurvey')->findOneByNumber($number);
+        $surveyManager = $this->get('survey.manager');
+        $dataSurveyManager = $this->get('datasurvey.manager');
+        $survey = $em->getRepository($surveyManager->getClass())->find($id);
+        $dataSurvey = $em->getRepository($dataSurveyManager->getClass())->findOneByNumber($number);
         return $this->render('SurveyJsBundle:survey:show.html.twig', array(
             'survey' => $survey,
             'dataSurvey' => $dataSurvey
@@ -107,11 +109,13 @@ class SurveyController extends Controller
     {             
         $em=$this->getDoctrine()->getManager();
         $surveyAsObject = json_decode($request->get('dataJsonSurvey'));
-        $survey = $em->getRepository('SurveyJsBundle:Survey')->find($request->get('idSurvey'));
-        $dataSurvey = $em->getRepository('SurveyJsBundle:DataSurvey')->findOneByNumber($request->get('number'));
+        $surveyManager = $this->get('survey.manager');
+        $dataSurveyManager = $this->get('datasurvey.manager');
+        $survey = $em->getRepository($surveyManager->getClass())->find($request->get('idSurvey'));
+        $dataSurvey = $em->getRepository($dataSurveyManager->getClass())->findOneByNumber($request->get('number'));
         if(is_null($dataSurvey)){
             $class = $this->container->getParameter('data_survey_class');
-            $dataSurvey = new $class(time().rand(0,99999999).time());
+            $dataSurvey = $dataSurveyManager->createDataSurvey((time().rand(0,99999999).time()));
         }
         $dataSurvey->setSurvey($survey);
         $dataSurvey->setJson($request->get('dataJsonSurvey'));

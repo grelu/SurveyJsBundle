@@ -2,7 +2,7 @@
 
 namespace Grelu\SurveyJsBundle\Manager;
 
-class SurveyManager
+class DataSurveyManager
 {
 
     /**
@@ -23,12 +23,12 @@ class SurveyManager
     /**
      * {@inheritdoc}
      */
-    public function createSurvey()
+    public function createDataSurvey($number)
     {
         $class = $this->getClass();
-        $survey = new $class();
+        $dataSurvey = new $class($number);
 
-        return $survey;
+        return $dataSurvey;
     }
 
     /**
